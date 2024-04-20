@@ -4,6 +4,142 @@
  */
 import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 
-const deployedContracts = {} as const;
+const deployedContracts = {
+  31337: {
+    GeneralFund: {
+      address: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+      abi: [
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "address",
+              name: "userAddress",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "userMsg",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "userNumber",
+              type: "uint256",
+            },
+          ],
+          name: "UserAddedSelf",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "address",
+              name: "userAddress",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "address",
+              name: "voucher",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "reasonVouchingFor",
+              type: "string",
+            },
+          ],
+          name: "UserVouchedFor",
+          type: "event",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "_whyAddedSelf",
+              type: "string",
+            },
+          ],
+          name: "addSelf",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "totalAddedSelf",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "userObjs",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "userId",
+              type: "uint256",
+            },
+            {
+              internalType: "string",
+              name: "userMsg",
+              type: "string",
+            },
+            {
+              internalType: "uint16",
+              name: "voteCounter",
+              type: "uint16",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_userVouchingFor",
+              type: "address",
+            },
+            {
+              internalType: "string",
+              name: "_reasonForVouching",
+              type: "string",
+            },
+          ],
+          name: "vouchForUser",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          stateMutability: "payable",
+          type: "receive",
+        },
+      ],
+      inheritedFunctions: {},
+    },
+  },
+} as const;
 
 export default deployedContracts satisfies GenericContractsDeclaration;

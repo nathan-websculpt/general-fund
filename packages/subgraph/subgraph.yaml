@@ -1,0 +1,25 @@
+specVersion: 0.0.4
+description: GeneralFundSubGraph
+repository: https://github.com/nathan-websculpt/general-fund/
+schema:
+  file: ./src/schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: GeneralFund
+    network: localhost
+    source:
+      abi: GeneralFund
+      address: "0x5FbDB2315678afecb367f032d93F642f64180aa3"
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - UserAddedSelf
+      abis:
+        - name: GeneralFund
+          file: ./abis/localhost_GeneralFund.json
+      eventHandlers:
+        - event: UserAddedSelf(address,string,uint256)
+          handler: handleUserAddedSelf
+      file: ./src/mapping.ts

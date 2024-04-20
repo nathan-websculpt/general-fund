@@ -1,0 +1,9 @@
+type UserAddedSelf @entity(immutable: true) {
+  id: Bytes!
+  userAddress: Bytes! # address
+  userNumber: BigInt!
+  userMsg: String
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
