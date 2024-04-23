@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useScaffoldWriteContract } from "~~/hooks/scaffold-eth";
 
 interface VouchForUserProps {
+  userId: string;
   userAddress: string;
 }
 
@@ -13,10 +14,10 @@ export const VouchForUser = (thisUser: VouchForUserProps) => {
     try {
       await writeYourContractAsync({
         functionName: "vouchForUser",
-        args: [thisUser?.userAddress, reasonForVouching],
+        args: [thisUser?.userId ,thisUser?.userAddress, reasonForVouching],
       });
     } catch (e) {
-      console.error("Error setting greeting:", e);
+      console.error("Error calling vouchForUser on contract:", e);
     }
   };
 

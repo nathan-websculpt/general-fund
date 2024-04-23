@@ -2,25 +2,31 @@
 
 import Link from "next/link";
 import type { NextPage } from "next";
-import { useAccount } from "wagmi";
 import { BugAntIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { Address } from "~~/components/scaffold-eth";
+import { AddUser } from "~~/components/general-fund/AddUser";
+import { Donate } from "~~/components/general-fund/Donate";
+import { MemberStatus } from "~~/components/general-fund/MemberStatus";
 import { PendingUsersList } from "~~/components/general-fund/PendingUsersList";
 
 const Home: NextPage = () => {
-  const { address: connectedAddress } = useAccount();
 
   return (
     <>
+      <div className="m-4"></div>
+      <MemberStatus />
+      <div className="m-4"></div>
+      <AddUser />
+      <div className="m-4"></div>
+      <Donate />
+
       <div className="flex flex-col items-center flex-grow pt-10">
         <div className="px-5">
           <h1 className="text-center">
             <span className="block mb-2 text-2xl">Welcome to</span>
             <span className="block text-4xl font-bold">Scaffold-ETH 2</span>
           </h1>
-          
-          <PendingUsersList />
 
+          <PendingUsersList />
         </div>
 
         <div className="flex-grow w-full px-8 py-12 mt-16 bg-base-300">

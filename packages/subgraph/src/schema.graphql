@@ -1,8 +1,42 @@
-type UserAddedSelf @entity(immutable: true) {
+type Donation @entity(immutable: true) {
   id: Bytes!
-  userAddress: Bytes! # address
+  donor: Bytes! # address
+  amount: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+# TODO: Rename to user
+type UserAddedSelf @entity {
+  id: Bytes!
+  userAddress: Bytes!
   userNumber: BigInt!
   userMsg: String
+  vouchCount: Int!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+  vouchers: [UserVouchedFor!] @derivedFrom(field: "user")
+}
+
+type UserVouchedFor @entity(immutable: true) {
+  id: Bytes!
+  userId: Bytes!
+  userAddress: Bytes!
+  voucherAddress: Bytes!
+  reasonVouchingFor: String
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+  user: UserAddedSelf
+}
+
+type Member @entity(immutable: true) {
+  id: Bytes!
+  memberAddress: Bytes!
+  memberNumber: BigInt!
+  memberMsg: String
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!

@@ -7,8 +7,76 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   31337: {
     GeneralFund: {
-      address: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+      address: "0x9A9f2CCfdE556A7E9Ff0848998Aa4a0CFD8863AE",
       abi: [
+        {
+          inputs: [],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "address",
+              name: "donor",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          name: "Donation",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "address",
+              name: "memberAddress",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "memberMsg",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "memberNumber",
+              type: "uint256",
+            },
+          ],
+          name: "Member",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "address",
+              name: "memberAddress",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          name: "MemberWithdrawal",
+          type: "event",
+        },
         {
           anonymous: false,
           inputs: [
@@ -39,6 +107,12 @@ const deployedContracts = {
           inputs: [
             {
               indexed: false,
+              internalType: "bytes",
+              name: "userId",
+              type: "bytes",
+            },
+            {
+              indexed: false,
               internalType: "address",
               name: "userAddress",
               type: "address",
@@ -46,7 +120,7 @@ const deployedContracts = {
             {
               indexed: false,
               internalType: "address",
-              name: "voucher",
+              name: "voucherAddress",
               type: "address",
             },
             {
@@ -74,6 +148,107 @@ const deployedContracts = {
         },
         {
           inputs: [],
+          name: "donate",
+          outputs: [],
+          stateMutability: "payable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "frequency",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "fundsAvailable",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "lastTimestamp",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "memberObjs",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "memberId",
+              type: "uint256",
+            },
+            {
+              internalType: "string",
+              name: "message",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "timestampAdded",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "memberWithdrawal",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "originalMembers",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
           name: "totalAddedSelf",
           outputs: [
             {
@@ -83,6 +258,26 @@ const deployedContracts = {
             },
           ],
           stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "totalMembers",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "tryFinishMonth",
+          outputs: [],
+          stateMutability: "nonpayable",
           type: "function",
         },
         {
@@ -115,7 +310,25 @@ const deployedContracts = {
           type: "function",
         },
         {
+          inputs: [],
+          name: "usersMonthlyLimit",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
           inputs: [
+            {
+              internalType: "bytes",
+              name: "_userId",
+              type: "bytes",
+            },
             {
               internalType: "address",
               name: "_userVouchingFor",
@@ -130,6 +343,30 @@ const deployedContracts = {
           name: "vouchForUser",
           outputs: [],
           stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "vouches",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
           type: "function",
         },
         {

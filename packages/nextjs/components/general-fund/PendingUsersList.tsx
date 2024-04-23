@@ -61,8 +61,8 @@ export const PendingUsersList = () => {
           >
             <p>address</p>
             <h1>{user.userAddress}</h1>
-            
-            <VouchForUser userAddress={user.userAddress} />
+            <h6>{user.vouchCount}</h6>
+            <VouchForUser userId={user.id} userAddress={user.userAddress} />
 
           </div>
         ))}
