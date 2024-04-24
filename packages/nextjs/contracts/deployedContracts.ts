@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   31337: {
     GeneralFund: {
-      address: "0x9A9f2CCfdE556A7E9Ff0848998Aa4a0CFD8863AE",
+      address: "0x59b670e9fA9D0A427751Af201D676719a970857b",
       abi: [
         {
           inputs: [],
@@ -75,6 +75,43 @@ const deployedContracts = {
             },
           ],
           name: "MemberWithdrawal",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "startTimestamp",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "endTimestamp",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "funds",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "members",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "fundsPerMember",
+              type: "uint256",
+            },
+          ],
+          name: "Month",
           type: "event",
         },
         {
@@ -200,6 +237,25 @@ const deployedContracts = {
               type: "address",
             },
           ],
+          name: "memberLastWithdrawal",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
           name: "memberObjs",
           outputs: [
             {
@@ -242,6 +298,19 @@ const deployedContracts = {
               internalType: "address",
               name: "",
               type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "threshold",
+          outputs: [
+            {
+              internalType: "uint16",
+              name: "",
+              type: "uint16",
             },
           ],
           stateMutability: "view",

@@ -19,25 +19,24 @@ contract GeneralFund {
 	}
 
 	//PRODTODO: uint256 public constant frequency = 2592000; //2,592,000 seconds is 4 weeks
-	uint256 public constant frequency = 2000;
+	uint256 public constant frequency = 200;
 	uint256 public lastTimestamp;
 	uint256 public totalAddedSelf = 0;
 	uint256 public totalMembers = 0;
 	uint256 public fundsAvailable = 0;
 	uint256 public usersMonthlyLimit = 0;
-	uint16 private constant threshold = 2; //TODO: change to 5
+	uint16 public constant threshold = 2; //TODO: change to 5
 	mapping(address => AddedUsers) public userObjs;
 	mapping(address => Members) public memberObjs;
 	mapping(address => address[]) public vouches; //user => addresses of those who vouched for this user
+	mapping(address => uint256) public memberLastWithdrawal; //user => block.timestamp of their last withdrawal
 
 	address[] public originalMembers = [
 		0x24eA659E7379fe958A36D829a555c3053C393A40,
 		0xd7EDcbd07d8CF0C0a513C6Ec82A1BC9eDa983FA3
 	];
 
-	// Events: a way to emit log statements from smart contract that can be listened to by external parties
 	event UserAddedSelf(
-		// address indexed userAddress,
 		address userAddress,
 		string userMsg,
 		uint256 userNumber
@@ -47,7 +46,7 @@ contract GeneralFund {
 		bytes userId,
 		address userAddress,
 		address voucherAddress,
-		string reasonVouchingFor //TODO: not needed
+		string reasonVouchingFor //TODO: not needed?
 	);
 
 	event Member(
@@ -55,6 +54,14 @@ contract GeneralFund {
 		address memberAddress,
 		string memberMsg,
 		uint256 memberNumber
+	);
+
+	event Month(
+		uint256 startTimestamp,
+		uint256 endTimestamp,
+		uint256 funds,
+		uint256 members,
+		uint256 fundsPerMember
 	);
 
 	event MemberWithdrawal(address memberAddress, uint256 amount);
@@ -102,6 +109,14 @@ contract GeneralFund {
 		require(
 			memberObjs[potentialMember].memberId != 0,
 			"Address is NOT a Member."
+		);
+		_;
+	}
+
+	modifier memberCanWithdraw(address member) {
+		require(
+			memberLastWithdrawal[member] < lastTimestamp,
+			"You have already withdrawn once this month."
 		);
 		_;
 	}
@@ -166,13 +181,18 @@ contract GeneralFund {
 		);
 	}
 
-	function memberWithdrawal() external isAMember(msg.sender) {
+	function memberWithdrawal()
+		external
+		isAMember(msg.sender)
+		memberCanWithdraw(msg.sender)
+	{
 		//The member's Creation-Timestamp must be
 		//less-than the current period's Creation-Timestamp
 		require(
 			memberObjs[msg.sender].timestampAdded <= lastTimestamp,
 			"Sorry! You have not been a member long enough to withdraw funds"
 		);
+		memberLastWithdrawal[msg.sender] = block.timestamp;
 		(bool success, ) = payable(msg.sender).call{ value: usersMonthlyLimit }(
 			""
 		);
@@ -186,9 +206,12 @@ contract GeneralFund {
 	}
 
 	function finishMonth() private {
+		uint256 prevTimestamp = lastTimestamp;
 		lastTimestamp = block.timestamp;
 		fundsAvailable = address(this).balance;
 		usersMonthlyLimit = fundsAvailable / totalMembers;
+
+		emit Month(prevTimestamp, lastTimestamp, fundsAvailable, totalMembers, usersMonthlyLimit);
 	}
 
 	function donate() public payable {

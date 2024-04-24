@@ -41,3 +41,15 @@ type Member @entity(immutable: true) {
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
+
+type Month @entity(immutable: true) {
+  id: Bytes!
+  startTimestamp: BigInt!
+  endTimestamp: BigInt!
+  funds: BigInt!
+  members: BigInt!
+  fundsPerMember: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}

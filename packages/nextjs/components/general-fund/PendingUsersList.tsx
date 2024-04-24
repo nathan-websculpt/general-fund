@@ -2,12 +2,17 @@ import { useEffect, useState } from "react";
 import { Address } from "../scaffold-eth";
 import { VouchForUser } from "./VouchForUser";
 import { useQuery } from "@apollo/client";
-import { GQL_PENDING_USERS } from "~~/helpers/getQueries";
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
+import { GQL_PENDING_USERS } from "~~/helpers/getQueries";
+import { useScaffoldReadContract } from "~~/hooks/scaffold-eth";
 
 export const PendingUsersList = () => {
   const [pageSize, setPageSize] = useState(25);
   const [pageNum, setPageNum] = useState(0);
+  const { data: vouchesNeeded } = useScaffoldReadContract({
+    contractName: "GeneralFund",
+    functionName: "threshold",
+  });
 
   const { loading, error, data } = useQuery(GQL_PENDING_USERS(), {
     variables: {
@@ -61,9 +66,23 @@ export const PendingUsersList = () => {
             key={user.id}
             className="flex flex-col gap-2 p-2 m-4 border shadow-xl border-base-300 bg-base-200 sm:rounded-lg"
           >
-            <Address address={user.userAddress} size="lg" />
-            <h6>{user.vouchCount}</h6>
-            <VouchForUser userId={user.id} userAddress={user.userAddress} />
+            <div className="flex flex-row justify-between">
+              <Address address={user.userAddress} size="lg" />
+              <div className="flex flex-row items-center gap-2">
+                <p>Needed to become a member:</p>
+                <p className="font-mono text-xl">{vouchesNeeded - user.vouchCount}</p>
+              </div>
+            </div>
+
+            <div className="flex flex-row justify-between">
+              <div className="flex flex-row items-center gap-2">
+                <p>Total Vouches:</p>
+                <p className="font-mono text-xl">{user.vouchCount}</p>
+              </div>
+              <div className="flex flex-row">
+                <VouchForUser userId={user.id} userAddress={user.userAddress} />
+              </div>
+            </div>
           </div>
         ))}
 

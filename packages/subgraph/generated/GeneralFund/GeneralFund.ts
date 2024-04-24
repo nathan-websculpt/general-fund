@@ -80,6 +80,40 @@ export class MemberWithdrawal__Params {
   }
 }
 
+export class Month extends ethereum.Event {
+  get params(): Month__Params {
+    return new Month__Params(this);
+  }
+}
+
+export class Month__Params {
+  _event: Month;
+
+  constructor(event: Month) {
+    this._event = event;
+  }
+
+  get startTimestamp(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
+  }
+
+  get endTimestamp(): BigInt {
+    return this._event.parameters[1].value.toBigInt();
+  }
+
+  get funds(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
+  }
+
+  get members(): BigInt {
+    return this._event.parameters[3].value.toBigInt();
+  }
+
+  get fundsPerMember(): BigInt {
+    return this._event.parameters[4].value.toBigInt();
+  }
+}
+
 export class UserAddedSelf extends ethereum.Event {
   get params(): UserAddedSelf__Params {
     return new UserAddedSelf__Params(this);
@@ -261,6 +295,29 @@ export class GeneralFund extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
+  memberLastWithdrawal(param0: Address): BigInt {
+    let result = super.call(
+      "memberLastWithdrawal",
+      "memberLastWithdrawal(address):(uint256)",
+      [ethereum.Value.fromAddress(param0)]
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_memberLastWithdrawal(param0: Address): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "memberLastWithdrawal",
+      "memberLastWithdrawal(address):(uint256)",
+      [ethereum.Value.fromAddress(param0)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
   memberObjs(param0: Address): GeneralFund__memberObjsResult {
     let result = super.call(
       "memberObjs",
@@ -317,6 +374,21 @@ export class GeneralFund extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  threshold(): i32 {
+    let result = super.call("threshold", "threshold():(uint16)", []);
+
+    return result[0].toI32();
+  }
+
+  try_threshold(): ethereum.CallResult<i32> {
+    let result = super.tryCall("threshold", "threshold():(uint16)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toI32());
   }
 
   totalAddedSelf(): BigInt {

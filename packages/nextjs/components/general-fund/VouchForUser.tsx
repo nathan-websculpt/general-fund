@@ -7,6 +7,8 @@ interface VouchForUserProps {
 }
 
 export const VouchForUser = (thisUser: VouchForUserProps) => {
+  //TODO: not going to use "Reason for vouching"
+  //TODO: ^^handle in contract, too
   const [reasonForVouching, setReasonForVouching] = useState("test reason for vouching");
   const { writeContractAsync: writeYourContractAsync } = useScaffoldWriteContract("GeneralFund");
 
@@ -23,7 +25,7 @@ export const VouchForUser = (thisUser: VouchForUserProps) => {
 
   return (
     <>
-      <button className="w-1/4 btn btn-primary" onClick={() => writeAsync()}>
+      <button className="btn btn-primary" onClick={() => writeAsync()}>
         VOUCH FOR USER
       </button>
     </>

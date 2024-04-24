@@ -3,9 +3,16 @@ import {
   UserAddedSelf as UserAddedSelfEvent,
   UserVouchedFor as UserVouchedForEvent,
   Member as MemberEvent,
+  Month as MonthEvent,
   Donation as DonationEvent,
 } from "../generated/GeneralFund/GeneralFund";
-import { UserAddedSelf, UserVouchedFor, Member, Donation } from "../generated/schema";
+import {
+  UserAddedSelf,
+  UserVouchedFor,
+  Member,
+  Donation,
+  Month,
+} from "../generated/schema";
 
 export function handleDonation(event: DonationEvent): void {
   let entity = new Donation(
@@ -51,7 +58,7 @@ export function handleUserVouchedFor(event: UserVouchedForEvent): void {
   entity.transactionHash = event.transaction.hash;
 
   let userEntity = UserAddedSelf.load(event.params.userId);
-  if(userEntity !== null) {
+  if (userEntity !== null) {
     entity.user = userEntity.id;
     userEntity.vouchCount++;
     userEntity.save();
@@ -67,6 +74,23 @@ export function handleMember(event: MemberEvent): void {
   entity.memberAddress = event.params.memberAddress;
   entity.memberNumber = event.params.memberNumber;
   entity.memberMsg = event.params.memberMsg;
+
+  entity.blockNumber = event.block.number;
+  entity.blockTimestamp = event.block.timestamp;
+  entity.transactionHash = event.transaction.hash;
+
+  entity.save();
+}
+
+export function handleMonth(event: MonthEvent): void {
+  let entity = new Month(
+    event.transaction.hash.concatI32(event.logIndex.toI32())
+  );
+  entity.startTimestamp = event.params.startTimestamp;
+  entity.endTimestamp = event.params.endTimestamp;
+  entity.funds = event.params.funds;
+  entity.members = event.params.members;
+  entity.fundsPerMember = event.params.fundsPerMember;
 
   entity.blockNumber = event.block.number;
   entity.blockTimestamp = event.block.timestamp;

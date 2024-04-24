@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Address } from "../scaffold-eth";
 import { useQuery } from "@apollo/client";
-import { GQL_MEMBER_List } from "~~/helpers/getQueries";
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
+import { GQL_MEMBER_List } from "~~/helpers/getQueries";
 
 export const MembersList = () => {
   const [pageSize, setPageSize] = useState(25);
@@ -60,8 +60,20 @@ export const MembersList = () => {
             key={member.id}
             className="flex flex-col gap-2 p-2 m-4 border shadow-xl border-base-300 bg-base-200 sm:rounded-lg"
           >
-            <Address address={member.memberAddress} size="lg" />
-            <h6>{member.memberMsg}</h6>
+            <div className="flex flex-row justify-between">
+              <Address address={member.memberAddress} size="lg" />
+              <div className="flex flex-row items-center gap-2">
+                <p>Creation-Timestamp:</p>
+                <p className="font-mono text-xl">{member.blockTimestamp}</p>
+              </div>
+            </div>
+
+            <div className="flex flex-row justify-between">
+              <div className="flex flex-row items-center gap-2">
+                <p>Member Message:</p>
+                <p className="text-xl">{member.memberMsg}</p>
+              </div>
+            </div>
           </div>
         ))}
 

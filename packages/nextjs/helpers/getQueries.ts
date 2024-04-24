@@ -35,6 +35,7 @@ export const GQL_MEMBER_List = () => {
         id
         memberAddress
         memberMsg
+        blockTimestamp
       }
     }
   `;
