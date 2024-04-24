@@ -26,3 +26,50 @@ export const GQL_MEMBER_By_Address = () => {
     }
   `;
 };
+
+//for getting a list of Members
+export const GQL_MEMBER_List = () => {
+  return gql`
+    query ($limit: Int!, $offset: Int!) {
+      members(orderBy: memberNumber, orderDirection: desc, first: $limit, skip: $offset) {
+        id
+        memberAddress
+        memberMsg
+      }
+    }
+  `;
+};
+
+//for getting a list of Members - used in table
+//TODO: if doesn't change from function above, consolodate the two
+export const GQL_MEMBER_List_For_Table = () => {
+  return gql`
+    query ($limit: Int!, $offset: Int!) {
+      members(orderBy: memberNumber, orderDirection: desc, first: $limit, skip: $offset) {
+        id
+        memberAddress
+        memberMsg
+        memberNumber
+      }
+    }
+  `;
+};
+
+//for viewing Users in a 2-tier table with Vouches
+export const GQL_USER_Two_Tier = () => {
+  return gql`
+    query ($limit: Int!, $offset: Int!) {
+      userAddedSelves(orderBy: userNumber, orderDirection: desc, first: $limit, skip: $offset) {
+        id
+        userAddress
+        userNumber
+        userMsg
+        vouchers {
+          id
+          voucherAddress
+          reasonVouchingFor
+        }
+      }
+    }
+  `;
+};

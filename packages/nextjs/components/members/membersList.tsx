@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 import { Address } from "../scaffold-eth";
-import { VouchForUser } from "./VouchForUser";
 import { useQuery } from "@apollo/client";
-import { GQL_PENDING_USERS } from "~~/helpers/getQueries";
+import { GQL_MEMBER_List } from "~~/helpers/getQueries";
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 
-export const PendingUsersList = () => {
+export const MembersList = () => {
   const [pageSize, setPageSize] = useState(25);
   const [pageNum, setPageNum] = useState(0);
 
-  const { loading, error, data } = useQuery(GQL_PENDING_USERS(), {
+  const { loading, error, data } = useQuery(GQL_MEMBER_List(), {
     variables: {
       limit: pageSize,
       offset: pageNum * pageSize,
@@ -18,11 +17,11 @@ export const PendingUsersList = () => {
   });
 
   useEffect(() => {
-    if (error !== undefined && error !== null) console.log("GQL_PENDING_USERS Query Error: ", error);
+    if (error !== undefined && error !== null) console.log("GQL_MEMBER_List Query Error: ", error);
   }, [error]);
 
   useEffect(() => {
-    if (data !== undefined && data !== null) console.log("GQL_PENDING_USERS DATA: ", data);
+    if (data !== undefined && data !== null) console.log("GQL_MEMBER_List DATA: ", data);
   }, [data]);
 
   if (loading) {
@@ -56,14 +55,13 @@ export const PendingUsersList = () => {
           </button>
         </div>
 
-        {data?.userAddedSelves?.map(user => (
+        {data?.members?.map(member => (
           <div
-            key={user.id}
+            key={member.id}
             className="flex flex-col gap-2 p-2 m-4 border shadow-xl border-base-300 bg-base-200 sm:rounded-lg"
           >
-            <Address address={user.userAddress} size="lg" />
-            <h6>{user.vouchCount}</h6>
-            <VouchForUser userId={user.id} userAddress={user.userAddress} />
+            <Address address={member.memberAddress} size="lg" />
+            <h6>{member.memberMsg}</h6>
           </div>
         ))}
 
