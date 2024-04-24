@@ -41,7 +41,6 @@ export const GQL_MEMBER_List = () => {
 };
 
 //for getting a list of Members - used in table
-//TODO: if doesn't change from function above, consolodate the two
 export const GQL_MEMBER_List_For_Table = () => {
   return gql`
     query ($limit: Int!, $offset: Int!) {
@@ -72,6 +71,20 @@ export const GQL_USER_Two_Tier = () => {
           reasonVouchingFor
           blockTimestamp
         }
+      }
+    }
+  `;
+};
+
+//for viewing Donations in a table
+export const GQL_DONATIONS_List_For_Table = () => {
+  return gql`
+    query ($limit: Int!, $offset: Int!) {
+      donations(orderBy: blockTimestamp, orderDirection: desc, first: $limit, skip: $offset) {
+        id
+        donor
+        amount
+        blockTimestamp
       }
     }
   `;
