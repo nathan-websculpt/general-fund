@@ -13,11 +13,12 @@ export const VouchesSubTable = (thisUser: VouchesSubTableProps) => {
           <tr className="text-sm rounded-xl text-base-content">
             <th className="bg-primary">Address</th>
             <th className="bg-primary">Reason</th>
+            <th className="bg-primary">Timestamp</th>
           </tr>
         </thead>
         <tbody>
           {thisUser?.vouches?.map(vouch => (
-            <VouchRow key={vouch?.id} address={vouch?.voucherAddress} reason={vouch?.reasonVouchingFor} />
+            <VouchRow key={vouch?.id} address={vouch?.voucherAddress} reason={vouch?.reasonVouchingFor} timestamp={vouch?.blockTimestamp} />
           ))}
         </tbody>
       </table>

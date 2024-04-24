@@ -50,6 +50,7 @@ export const GQL_MEMBER_List_For_Table = () => {
         memberAddress
         memberMsg
         memberNumber
+        blockTimestamp
       }
     }
   `;
@@ -64,10 +65,12 @@ export const GQL_USER_Two_Tier = () => {
         userAddress
         userNumber
         userMsg
+        blockTimestamp
         vouchers {
           id
           voucherAddress
           reasonVouchingFor
+          blockTimestamp
         }
       }
     }

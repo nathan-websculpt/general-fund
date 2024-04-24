@@ -5,6 +5,7 @@ interface MemberRowProps {
   memberNumber: number;
   address: string;
   message: string;
+  timestamp: string;
 }
 
 export const MemberRow = (member: MemberRowProps) => {
@@ -16,6 +17,7 @@ export const MemberRow = (member: MemberRowProps) => {
           <Address address={member?.address} size="sm" />
         </td>
         <td>{member?.message}</td>
+        <td>{member?.timestamp}</td>
       </tr>
     </>
   );

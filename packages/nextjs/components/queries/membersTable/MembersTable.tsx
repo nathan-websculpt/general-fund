@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { UserRow } from "./UserRow";
 import { useQuery } from "@apollo/client";
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 import { GQL_MEMBER_List_For_Table } from "~~/helpers/getQueries";
@@ -54,6 +53,7 @@ export const MembersTable = () => {
               <th className="bg-primary">ID</th>
               <th className="bg-primary">Address</th>
               <th className="bg-primary">Message</th>
+              <th className="bg-primary">Timestamp</th>
             </tr>
           </thead>
           <tbody>
@@ -64,6 +64,7 @@ export const MembersTable = () => {
                 memberNumber={member?.memberNumber}
                 address={member?.memberAddress}
                 message={member?.memberMsg}
+                timestamp={member?.blockTimestamp}
               />
             ))}
           </tbody>

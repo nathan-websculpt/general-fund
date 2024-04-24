@@ -54,6 +54,7 @@ export const UsersTable = () => {
               <th className="bg-primary">ID</th>
               <th className="bg-primary">Address</th>
               <th className="bg-primary">Message</th>
+              <th className="bg-primary">Timestamp</th>
             </tr>
           </thead>
           <tbody>
@@ -64,6 +65,7 @@ export const UsersTable = () => {
                 userNumber={user?.userNumber}
                 address={user?.userAddress}
                 message={user?.userMsg}
+                timestamp={user?.blockTimestamp}
                 vouches={user?.vouchers}
               />
             ))}

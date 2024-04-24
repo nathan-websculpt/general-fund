@@ -1,1 +1,1 @@
-export type TVouch = { id: string; voucherAddress: string; reasonVouchingFor: string };
+export type TVouch = { id: string; voucherAddress: string; reasonVouchingFor: string; blockTimestamp: string };

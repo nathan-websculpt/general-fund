@@ -15,9 +15,6 @@ const Home: NextPage = () => {
       <div className="m-4"></div>
       <MemberStatus />
       <div className="m-4"></div>
-      <AddUser />
-      <div className="m-4"></div>
-      <Donate />
 
       <div className="flex flex-col items-center flex-grow pt-10">
         <div className="px-5">

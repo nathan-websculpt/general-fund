@@ -8,6 +8,7 @@ interface UserRowProps {
   userNumber: number;
   address: string;
   message: string;
+  timestamp: bigint;
   vouches: TVouch[];
 }
 
@@ -36,10 +37,11 @@ export const UserRow = (user: UserRowProps) => {
           <Address address={user?.address} size="sm" />
         </td>
         <td>{user?.message}</td>
+        <td>{user?.timestamp}</td>
       </tr>
       <tr className={` ${rowOpen ? "rowOpen" : "hidden"} `}>
         {/* drillable, nested table */}
-        <td colSpan={2}>
+        <td colSpan={3}>
           <VouchesSubTable vouches={user?.vouches} />
         </td>
       </tr>
