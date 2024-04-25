@@ -12,7 +12,7 @@ const DonatePage: NextPage = () => {
           <h1 className="text-center">
             <span className="block mb-2 text-4xl">Donate Now!</span>
             <span className="block text-2xl font-bold">
-              Each member has an equal-share to your donation.
+              Each member has an equal-share of your donation.
             </span>
           </h1>
         </div>

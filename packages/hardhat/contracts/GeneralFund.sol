@@ -19,7 +19,7 @@ contract GeneralFund {
 	}
 
 	//PRODTODO: uint256 public constant frequency = 2592000; //2,592,000 seconds is 4 weeks
-	uint256 public constant frequency = 240;
+	uint256 public constant frequency = 500;
 	uint256 public lastTimestamp;
 	uint256 public totalAddedSelf = 0;
 	uint256 public totalMembers = 0;
@@ -122,10 +122,10 @@ contract GeneralFund {
 	}
 
 	constructor() {
-		lastTimestamp = block.timestamp;
 		for (uint16 i = 0; i < originalMembers.length; i++) {
 			makeNewMember(originalMembers[i]);
 		}
+		lastTimestamp = block.timestamp;
 	}
 
 	function addSelf(
@@ -186,6 +186,11 @@ contract GeneralFund {
 		isAMember(msg.sender)
 		memberCanWithdraw(msg.sender)
 	{
+		require(address(this).balance > 0, "Sorry! The fund is empty.");
+		require(
+			address(this).balance >= usersMonthlyLimit,
+			"Sorry! The fund does not have enough funds to match the usersMonthlyLimit."
+		);
 		//The member's Creation-Timestamp must be
 		//less-than the current period's Creation-Timestamp
 		require(
@@ -205,7 +210,7 @@ contract GeneralFund {
 		if (block.timestamp >= lastTimestamp + frequency) finishMonth();
 	}
 
-	function returnTimestamp() external view returns(uint256) {
+	function returnTimestamp() external view returns (uint256) {
 		return block.timestamp;
 	}
 
@@ -215,7 +220,13 @@ contract GeneralFund {
 		totalMonthlyFundsAvailable = address(this).balance;
 		usersMonthlyLimit = totalMonthlyFundsAvailable / totalMembers;
 
-		emit Month(prevTimestamp, lastTimestamp, totalMonthlyFundsAvailable, totalMembers, usersMonthlyLimit);
+		emit Month(
+			prevTimestamp,
+			lastTimestamp,
+			totalMonthlyFundsAvailable,
+			totalMembers,
+			usersMonthlyLimit
+		);
 	}
 
 	function donate() public payable {

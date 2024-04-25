@@ -119,7 +119,7 @@ export const MemberStatus = () => {
             </div>
             <div className="flex flex-row justify-between">
               <div className="flex flex-row items-center gap-2">
-                <p>total members last month:</p>
+                <p>total members:</p>
                 <p className="font-mono text-xl">{totalMembers?.toString()}</p>
               </div>
               <div className="flex flex-row items-center gap-2">

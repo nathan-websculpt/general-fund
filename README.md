@@ -21,6 +21,9 @@ Then, people have a way to be charitable in generalized ways (when they may not 
 
 - Pause Contract state/modifier so two people don't try to roll the month over at once
 - Automate monthly roll-overs inside commonly used functions? Or, polling service that uses Alchemy API? Not sure, too tired to be sure.
+- Ability for users to renounce funds -- while remaining a voting-member
+    - allowing Members to offer their funds up to others
+- Ability to vote Members out
 
 ## 👇 General Fund is Built-on SE-2 👇
 
