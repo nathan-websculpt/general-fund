@@ -12,10 +12,10 @@ const GetStarted: NextPage = () => {
           <h1 className="text-center">
             <span className="block mb-2 text-4xl">Getting Started?</span>
             <span className="block text-2xl font-bold">
-              Become a user today, and then you need X amount of Members to vouch for you
+              Become a user today - Users are basically "Pending Membership"
             </span>
             <span className="block mt-5 text-xl font-bold">
-              Then, you are a Member of the General Fund, and you will be able to withdraw
+              When enough Members have vouched for you - you will be able to withdraw (the month after membership is granted)
             </span>
           </h1>
         </div>
