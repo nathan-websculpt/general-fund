@@ -1,3 +1,24 @@
+# General Fund
+
+#### ⚠️ work-in-progress ⚠️
+
+### 📌 Overview
+
+- The Smart Contract is deployed with a group of “Members” defined. 
+- Anyone can donate.
+- Anyone can add themselves as a Pending User. 
+- It takes X Amount of Member-Votes to turn this Pending User into a Member.
+- Members can do withdrawals (monthly).
+- Each Month will create a “snapshot” of the fund (dividing total funds by the members [to know how much each member can withdraw]). Members can not withdraw until enough time has passed for them to be in a “snapshot”.
+
+#### TL;DR
+
+**A General-Fund with a members-list that is self-governed.**
+
+Then, people have a way to be charitable in generalized ways (when they may not know how to actually get involved). 
+
+## 👇 General Fund is Built-on SE-2 👇
+
 # 🏗 Scaffold-ETH 2
 
 <h4 align="center">
