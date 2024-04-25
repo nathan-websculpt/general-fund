@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
+import { Balance } from "../scaffold-eth";
 import { TryFinishMonthButton } from "./TryFinishMonthButton";
 import { WithdrawButton } from "./WithdrawButton";
 import { useQuery } from "@apollo/client";
 import { formatEther } from "viem";
 import { useAccount } from "wagmi";
 import { GQL_MEMBER_By_Address } from "~~/helpers/getQueries";
-import { useScaffoldReadContract } from "~~/hooks/scaffold-eth";
+import { useDeployedContractInfo, useScaffoldReadContract } from "~~/hooks/scaffold-eth";
 import { notification } from "~~/utils/scaffold-eth";
 
 export const MemberStatus = () => {
@@ -13,6 +14,7 @@ export const MemberStatus = () => {
   const [nextTimestamp, setNextTimestamp] = useState<bigint>();
   const [timeRemaining, setTimeRemaining] = useState<bigint>();
   const [itsOver, setItsOver] = useState<bool>(false);
+  const { data: deployedContractData, isLoading: deployedContractLoading } = useDeployedContractInfo("GeneralFund");
 
   const { loading, error, data } = useQuery(GQL_MEMBER_By_Address(), {
     variables: { slug: connectedAddress },
@@ -105,12 +107,6 @@ export const MemberStatus = () => {
             </div>
             <div className="flex flex-row justify-between">
               <div className="flex flex-row items-center gap-2">
-                <p>total members last month:</p>
-                <p className="font-mono text-xl">{totalMembers?.toString()}</p>
-              </div>
-            </div>
-            <div className="flex flex-row justify-between">
-              <div className="flex flex-row items-center gap-2">
                 <p>total funds last month:</p>
                 {totalMonthlyFundsAvailable && (
                   <p className="font-mono text-xl">{formatEther(totalMonthlyFundsAvailable)}</p>
@@ -119,6 +115,18 @@ export const MemberStatus = () => {
               <div className="flex flex-row items-center gap-2">
                 <p>funds available per user:</p>
                 {usersMonthlyLimit && <p className="font-mono text-xl">{formatEther(usersMonthlyLimit)}</p>}
+              </div>
+            </div>
+            <div className="flex flex-row justify-between">
+              <div className="flex flex-row items-center gap-2">
+                <p>total members last month:</p>
+                <p className="font-mono text-xl">{totalMembers?.toString()}</p>
+              </div>
+              <div className="flex flex-row items-center gap-2">
+                <p>CONTRACT'S TOTAL BALANCE:</p>
+                {!deployedContractLoading && (
+                  <Balance address={deployedContractData?.address} className="px-0 h-1.5 min-h-[0.375rem]" />
+                )}
               </div>
             </div>
           </>
