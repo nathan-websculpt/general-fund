@@ -11,6 +11,11 @@
 - Members can do withdrawals (monthly).
 - Each Month will create a “snapshot” of the fund (dividing total funds by the members [to know how much each member can withdraw]). Members can not withdraw until enough time has passed for them to be in a “snapshot”.
 
+### //TODO:
+
+- Pause Contract state/modifier so two people don't try to roll the month over at once
+- Automate monthly roll-overs inside commonly used functions? Or, polling service that uses Alchemy API? Not sure, too tired to be sure.
+
 #### TL;DR
 
 **A General-Fund with a members-list that is self-governed.**
