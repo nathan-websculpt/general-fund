@@ -90,3 +90,19 @@ export const GQL_DONATIONS_List_For_Table = () => {
     }
   `;
 };
+
+//for getting a list of Months - used in table
+export const GQL_MONTH_List_For_Table = () => {
+  return gql`
+    query ($limit: Int!, $offset: Int!) {
+      months(orderBy: startTimestamp, orderDirection: desc, first: $limit, skip: $offset) {
+        id
+        startTimestamp
+        endTimestamp
+        members
+        funds
+        fundsPerMember
+      }
+    }
+  `;
+};
