@@ -23,7 +23,7 @@ contract GeneralFund {
 	uint256 public lastTimestamp;
 	uint256 public totalAddedSelf = 0;
 	uint256 public totalMembers = 0;
-	uint256 public fundsAvailable = 0; //TODO: rename to totalMonthlyFundsAvailable
+	uint256 public totalMonthlyFundsAvailable = 0; //TODO: rename to totalMonthlyFundsAvailable
 	uint256 public usersMonthlyLimit = 0;
 	uint16 public constant threshold = 2; //TODO: change to 5
 	mapping(address => AddedUsers) public userObjs;
@@ -212,10 +212,10 @@ contract GeneralFund {
 	function finishMonth() private {
 		uint256 prevTimestamp = lastTimestamp;
 		lastTimestamp = block.timestamp;
-		fundsAvailable = address(this).balance;
-		usersMonthlyLimit = fundsAvailable / totalMembers;
+		totalMonthlyFundsAvailable = address(this).balance;
+		usersMonthlyLimit = totalMonthlyFundsAvailable / totalMembers;
 
-		emit Month(prevTimestamp, lastTimestamp, fundsAvailable, totalMembers, usersMonthlyLimit);
+		emit Month(prevTimestamp, lastTimestamp, totalMonthlyFundsAvailable, totalMembers, usersMonthlyLimit);
 	}
 
 	function donate() public payable {

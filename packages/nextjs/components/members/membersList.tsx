@@ -26,9 +26,8 @@ export const MembersList = () => {
 
   if (loading) {
     return (
-      <div className="flex flex-col gap-2 p-2 m-4 mx-auto border shadow-xl border-base-300 bg-base-200 sm:rounded-lg">
-        {/* <Spinner width="150px" height="150px" /> */}
-        <h1>TODO: spinner....</h1>
+      <div className="flex flex-col items-center gap-2 p-2 m-4 mx-auto border shadow-xl border-base-300 bg-base-200 sm:rounded-lg">
+        <span className="loading loading-spinner loading-lg"></span>
       </div>
     );
   } else {

@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   31337: {
     GeneralFund: {
-      address: "0x4ed7c70F96B99c776995fB64377f0d4aB3B0e1C1",
+      address: "0x322813Fd9A801c5507c9de605d63CEA4f2CE6c44",
       abi: [
         {
           inputs: [],
@@ -205,19 +205,6 @@ const deployedContracts = {
         },
         {
           inputs: [],
-          name: "fundsAvailable",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
           name: "lastTimestamp",
           outputs: [
             {
@@ -345,6 +332,19 @@ const deployedContracts = {
         {
           inputs: [],
           name: "totalMembers",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "totalMonthlyFundsAvailable",
           outputs: [
             {
               internalType: "uint256",

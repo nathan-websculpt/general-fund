@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
+import { MemberRow } from "./MemberRow";
 import { useQuery } from "@apollo/client";
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 import { GQL_MEMBER_List_For_Table } from "~~/helpers/getQueries";
-import { MemberRow } from "./MemberRow";
 
 export const MembersTable = () => {
   const [pageSize, setPageSize] = useState(25);
@@ -26,9 +26,8 @@ export const MembersTable = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center w-full min-w-full gap-2 p-2 m-4 border shadow-xl border-base-300 bg-base-200 sm:rounded-lg">
-        {/* <Spinner width="150px" height="150px" /> */}
-        <p>TODO: Spinner</p>
+      <div className="flex flex-col items-center gap-2 p-2 m-4 mx-auto border shadow-xl border-base-300 bg-base-200 sm:rounded-lg">
+        <span className="loading loading-spinner loading-lg"></span>
       </div>
     );
   } else {

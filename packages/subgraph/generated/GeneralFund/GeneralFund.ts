@@ -257,25 +257,6 @@ export class GeneralFund extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
-  fundsAvailable(): BigInt {
-    let result = super.call("fundsAvailable", "fundsAvailable():(uint256)", []);
-
-    return result[0].toBigInt();
-  }
-
-  try_fundsAvailable(): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "fundsAvailable",
-      "fundsAvailable():(uint256)",
-      []
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
   lastTimestamp(): BigInt {
     let result = super.call("lastTimestamp", "lastTimestamp():(uint256)", []);
 
@@ -441,6 +422,29 @@ export class GeneralFund extends ethereum.SmartContract {
 
   try_totalMembers(): ethereum.CallResult<BigInt> {
     let result = super.tryCall("totalMembers", "totalMembers():(uint256)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  totalMonthlyFundsAvailable(): BigInt {
+    let result = super.call(
+      "totalMonthlyFundsAvailable",
+      "totalMonthlyFundsAvailable():(uint256)",
+      []
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_totalMonthlyFundsAvailable(): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "totalMonthlyFundsAvailable",
+      "totalMonthlyFundsAvailable():(uint256)",
+      []
+    );
     if (result.reverted) {
       return new ethereum.CallResult();
     }
