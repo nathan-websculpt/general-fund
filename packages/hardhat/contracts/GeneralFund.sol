@@ -19,7 +19,7 @@ contract GeneralFund {
 	}
 
 	//PRODTODO: uint256 public constant frequency = 2592000; //2,592,000 seconds is 4 weeks
-	uint256 public constant frequency = 200;
+	uint256 public constant frequency = 240;
 	uint256 public lastTimestamp;
 	uint256 public totalAddedSelf = 0;
 	uint256 public totalMembers = 0;
@@ -203,6 +203,10 @@ contract GeneralFund {
 
 	function tryFinishMonth() external {
 		if (block.timestamp >= lastTimestamp + frequency) finishMonth();
+	}
+
+	function returnTimestamp() external view returns(uint256) {
+		return block.timestamp;
 	}
 
 	function finishMonth() private {

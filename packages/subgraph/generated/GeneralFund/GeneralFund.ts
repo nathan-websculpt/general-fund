@@ -376,6 +376,29 @@ export class GeneralFund extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
+  returnTimestamp(): BigInt {
+    let result = super.call(
+      "returnTimestamp",
+      "returnTimestamp():(uint256)",
+      []
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_returnTimestamp(): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "returnTimestamp",
+      "returnTimestamp():(uint256)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
   threshold(): i32 {
     let result = super.call("threshold", "threshold():(uint16)", []);
 
