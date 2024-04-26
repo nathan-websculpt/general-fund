@@ -3,27 +3,25 @@ pragma solidity >=0.8.0 <0.9.0;
 
 // import "@openzeppelin/contracts/access/Ownable.sol";
 
-// TODO: maybe a session should be two weeks and new members have to wait for
-// TWO sessions to ensure the fund doesn't run out of money due to new users
 contract GeneralFund {
 	struct AddedUsers {
 		uint256 userId; //user counter, starting with 1
-		string userMsg; //TODO: not needed
+		string userMsg; //TODO: not needed?
 		uint16 voteCounter;
 	}
 
 	struct Members {
 		uint256 memberId; //member counter, starting with 1
-		string message; //TODO: not needed
+		string message; //TODO: not needed?
 		uint256 timestampAdded;
 	}
 
 	//PRODTODO: uint256 public constant frequency = 2592000; //2,592,000 seconds is 4 weeks
-	uint256 public constant frequency = 500;
+	uint256 public constant frequency = 1000;
 	uint256 public lastTimestamp;
 	uint256 public totalAddedSelf = 0;
 	uint256 public totalMembers = 0;
-	uint256 public totalMonthlyFundsAvailable = 0; //TODO: rename to totalMonthlyFundsAvailable
+	uint256 public totalMonthlyFundsAvailable = 0;
 	uint256 public usersMonthlyLimit = 0;
 	uint16 public constant threshold = 2; //TODO: change to 5
 	mapping(address => AddedUsers) public userObjs;
@@ -31,9 +29,10 @@ contract GeneralFund {
 	mapping(address => address[]) public vouches; //user => addresses of those who vouched for this user
 	mapping(address => uint256) public memberLastWithdrawal; //user => block.timestamp of their last withdrawal
 
+	//todo: change to your addresses
 	address[] public originalMembers = [
-		0x24eA659E7379fe958A36D829a555c3053C393A40,
-		0xd7EDcbd07d8CF0C0a513C6Ec82A1BC9eDa983FA3
+		0x1e7aAbB9D0C701208E875131d0A1cFcDAba79350,
+		0x75990d2df3b7699fB84D1d54978eC8b279dD4c11
 	];
 
 	event UserAddedSelf(
@@ -243,9 +242,6 @@ contract GeneralFund {
 		return false;
 	}
 
-	/**
-	 * Function that allows the contract to receive ETH
-	 */
 	receive() external payable {
 		donate();
 	}
