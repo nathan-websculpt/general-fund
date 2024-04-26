@@ -3,8 +3,6 @@ pragma solidity >=0.8.0 <0.9.0;
 
 // import "@openzeppelin/contracts/access/Ownable.sol";
 
-// TODO: maybe a session should be two weeks and new members have to wait for
-// TWO sessions to ensure the fund doesn't run out of money due to new users
 contract GeneralFund {
 	struct AddedUsers {
 		uint256 userId; //user counter, starting with 1
@@ -242,10 +240,7 @@ contract GeneralFund {
 
 		return false;
 	}
-
-	/**
-	 * Function that allows the contract to receive ETH
-	 */
+	
 	receive() external payable {
 		donate();
 	}
