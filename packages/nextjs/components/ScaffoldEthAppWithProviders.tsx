@@ -50,7 +50,8 @@ export const ScaffoldEthAppWithProviders = ({ children }: { children: React.Reac
   const isDarkMode = resolvedTheme === "dark";
   const [mounted, setMounted] = useState(false);
 
-  const subgraphUri = "http://localhost:8000/subgraphs/name/scaffold-eth/your-contract";
+  const subgraphUri = "https://api.studio.thegraph.com/query/60402/general-fund-v1/0.0.1"; //TODO:PRODTODO
+  // const subgraphUri = "http://localhost:8000/subgraphs/name/scaffold-eth/your-contract";
   const apolloClient = new ApolloClient({
     uri: subgraphUri,
     cache: new InMemoryCache(),
